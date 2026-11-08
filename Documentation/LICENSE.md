@@ -16,7 +16,7 @@ https://github.com/b-bcoder/SFO-Safe-File-Organizer
 
 **"You"** means the person or organization exercising rights under this license.
 
-"I", "me", "my" refer to B&B Coder, the owner of this repository.
+"I", "me", and "my" refer to B&B Coder, the owner of this repository and the licensor under this license.
 
 ## 2. Permission to Use and Share the Application
 
