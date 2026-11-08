@@ -51,7 +51,7 @@ npm run dist:portable  # Portable Windows executable
 - Moving copies and verifies each file before removing its source; moves from protected Windows and program folders and writes into those folders are blocked.
 - Individual file errors are logged without stopping the rest of a batch.
 
-## License **Read the license terms before cloning the repo**
+## License - (**Read the license terms before cloning the repo**)
 
 SFO is distributed under the custom terms in [LICENSE.md](Documentation/LICENSE.md).
 The application may be used and unmodified copies may be shared with the
