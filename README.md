@@ -62,9 +62,8 @@ npm run dist:portable  # Portable Windows executable
 
 SFO is distributed under the custom terms in [LICENSE.md](Documentation/LICENSE.md).
 The application may be used and unmodified copies may be shared with the
-required author and repository attribution. Reusing the source code in another
-project requires prior written permission from me (B&B Coder); see the license for
-the request process and conditions.
+required author and repository attribution. Cloning the source code requires prior written permission from me (B&B Coder); 
+see the license for the request process and conditions.
 
 Third-party software included with the application is listed in
 [THIRD-PARTY-NOTICES.md](Documentation/THIRD-PARTY-NOTICES.md). Electron's bundled
