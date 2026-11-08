@@ -51,16 +51,16 @@ npm run dist:portable  # Portable Windows executable
 - Moving copies and verifies each file before removing its source; moves from protected Windows and program folders and writes into those folders are blocked.
 - Individual file errors are logged without stopping the rest of a batch.
 
-## License
+## License **Read the license terms before cloning the repo**
 
-SFO is distributed under the custom terms in [LICENSE.txt](./LICENSE.txt).
+SFO is distributed under the custom terms in [LICENSE.md](Documentation/LICENSE.md).
 The application may be used and unmodified copies may be shared with the
 required author and repository attribution. Reusing the source code in another
 project requires prior written permission from me (B&B Coder); see the license for
 the request process and conditions.
 
 Third-party software included with the application is listed in
-[THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md). Electron's bundled
+[THIRD-PARTY-NOTICES.md](Documentation/THIRD-PARTY-NOTICES.md). Electron's bundled
 third-party license details are also shipped with the packaged application.
 
 ## Project layout
