@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' file: data:; media-src 'self' file:;">
+  <title>SFO - Safe File Organizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="renderer.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar panel">
+      <a class="brand" href="#" id="all-files">
+        <span class="brand-mark">S</span>
+        <span><strong>SFO</strong><small>Safe File Organizer</small></span>
+      </a>
+      <div class="nav-label" data-i18n="library">BIBLIOTHEEK</div>
+      <nav class="category-nav" aria-label="Bestandscategorie" data-i18n-aria-label="fileCategory">
+        <button class="nav-item active" data-category="">▦ <span data-i18n="allFiles">Alle bestanden</span></button>
+        <button class="nav-item" data-category="Afbeeldingen">▧ <span data-i18n="images">Afbeeldingen</span></button>
+        <button class="nav-item" data-category="Video's">▷ <span data-i18n="videos">Video's</span></button>
+        <button class="nav-item" data-category="Documenten">▤ <span data-i18n="documents">Documenten</span></button>
+        <button class="nav-item" data-category="Audio">♫ <span data-i18n="audio">Audio</span></button>
+        <button class="nav-item" data-category="Overig">◫ <span data-i18n="other">Overig</span></button>
+      </nav>
+      <div class="locations-header">
+        <span class="nav-label" data-i18n="storageLocations">OPSLAGLOCATIES</span>
+        <button class="icon-button" id="add-location" title="Locatie toevoegen" aria-label="Locatie toevoegen" data-i18n-title="addLocation" data-i18n-aria-label="addLocation">＋</button>
+      </div>
+      <nav id="locations-list" class="locations-list" aria-label="Opslaglocaties" data-i18n-aria-label="storageLocations"></nav>
+      <div class="sidebar-note" data-i18n="sidebarNote">Je bestanden blijven op hun oorspronkelijke locatie totdat jij een actie uitvoert.</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <div>
+          <div class="eyebrow" data-i18n="headerEyebrow">JOUW BESTANDEN, ÉÉN OVERZICHT</div>
+          <h1 id="page-title" data-i18n="fileLibrary">Bestandsbibliotheek</h1>
+          <p id="subtitle" data-i18n="welcomeSubtitle">Voeg een map of schijf toe om te beginnen.</p>
+        </div>
+        <div class="header-actions">
+          <label class="language-picker"><span data-i18n="language">Taal</span>
+            <select id="language-select" aria-label="Taal" data-i18n-aria-label="language">
+              <option value="nl">Nederlands</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <button class="primary-button" id="scan-all">⟳ <span data-i18n="scanLibrary">Bibliotheek scannen</span></button>
+        </div>
+      </header>
+
+      <section class="stats-row" aria-label="Bibliotheekstatistieken" data-i18n-aria-label="libraryStats">
+        <article class="stat-card"><span class="stat-icon">▦</span><div><strong id="stat-total">0</strong><small data-i18n="files">Bestanden</small></div></article>
+        <article class="stat-card"><span class="stat-icon">▧</span><div><strong id="stat-images">0</strong><small data-i18n="images">Afbeeldingen</small></div></article>
+        <article class="stat-card"><span class="stat-icon">▷</span><div><strong id="stat-videos">0</strong><small data-i18n="videos">Video's</small></div></article>
+        <article class="stat-card"><span class="stat-icon">▤</span><div><strong id="stat-documents">0</strong><small data-i18n="documents">Documenten</small></div></article>
+        <article class="stat-card"><span class="stat-icon">♫</span><div><strong id="stat-audio">0</strong><small data-i18n="audio">Audio</small></div></article>
+      </section>
+
+      <section class="library panel">
+        <div class="toolbar">
+          <label class="search-box"><span>⌕</span><input id="search" type="search" placeholder="Zoek op naam of extensie…" autocomplete="off" data-i18n-placeholder="searchPlaceholder"></label>
+          <select id="size-filter" aria-label="Filter op bestandsgrootte" data-i18n-aria-label="filterBySize">
+            <option value="all" data-i18n="anySize">Elke grootte</option>
+            <option value="small" data-i18n="smaller10">Kleiner dan 10 MB</option>
+            <option value="medium" data-i18n="from10to100">10 tot 100 MB</option>
+            <option value="large" data-i18n="larger100">Groter dan 100 MB</option>
+          </select>
+          <select id="sort-order" aria-label="Bestanden sorteren" data-i18n-aria-label="sortFiles">
+            <option value="name-asc" data-i18n="nameAsc">Naam A–Z</option>
+            <option value="name-desc" data-i18n="nameDesc">Naam Z–A</option>
+            <option value="size-desc" data-i18n="sizeDesc">Grootte: groot–klein</option>
+            <option value="size-asc" data-i18n="sizeAsc">Grootte: klein–groot</option>
+          </select>
+          <div class="view-switch" role="group" aria-label="Weergave" data-i18n-aria-label="viewMode">
+            <button type="button" class="secondary-button view-button" id="view-grid" aria-pressed="true" data-i18n="gridView">▦ Raster</button>
+            <button type="button" class="secondary-button view-button" id="view-details" aria-pressed="false" data-i18n="detailView">☷ Details</button>
+          </div>
+          <button class="secondary-button" id="refresh" data-i18n="refresh">Vernieuwen</button>
+          <button class="secondary-button clear-library-button" id="clear-library" data-i18n="clearLibrary">Bibliotheek wissen</button>
+        </div>
+        <div class="table-wrap">
+          <table id="file-table">
+            <thead><tr><th class="check-column"></th><th data-i18n="fileName">BESTANDSNAAM</th><th data-i18n="type">TYPE</th><th data-i18n="size">GROOTTE</th><th data-i18n="modified">GEWIJZIGD</th><th data-i18n="location">LOCATIE</th></tr></thead>
+            <tbody id="file-list"></tbody>
+          </table>
+          <div id="file-grid" class="file-grid" hidden></div>
+          <div class="empty-state" id="empty-state">
+            <div class="empty-icon">▧</div>
+            <strong data-i18n="emptyTitle">Je bibliotheek is nog leeg</strong>
+            <span data-i18n="emptySubtitle">Voeg een map of schijf toe om je bestanden te indexeren.</span>
+            <button class="secondary-button" id="empty-add-location"><span data-i18n="addLocationButton">＋ Locatie toevoegen</span></button>
+          </div>
+        </div>
+        <div class="table-footer">
+          <span id="results-count">0 bestanden</span>
+          <button class="secondary-button load-more" id="load-more" hidden data-i18n="loadMore">Meer laden</button>
+          <span class="footer-hint" data-i18n="sortHint">Sorteer op naam of grootte</span>
+        </div>
+      </section>
+      <footer class="status-bar"><span class="status-dot"></span><span id="status" data-i18n="ready">Klaar</span><span id="last-scan"></span></footer>
+    </main>
+
+    <aside class="basket panel">
+      <div class="basket-heading"><div><div class="eyebrow" data-i18n="yourSelection">JOUW SELECTIE</div><h2 data-i18n="basket">Selectiemandje</h2></div><span class="basket-count" id="basket-count">0</span></div>
+      <p class="basket-total" id="basket-total">0 bestanden · 0 B</p>
+      <div class="basket-actions"><button class="text-button" id="select-visible" data-i18n="selectVisible">Selecteer alle resultaten</button><button class="text-button" id="clear-basket" data-i18n="emptyBasket">Leegmaken</button></div>
+      <div id="basket-batch-progress" class="basket-batch-progress" hidden role="status" aria-live="polite">
+        <div class="batch-progress-label"><span data-i18n="selectionProgressTitle">Bestanden toevoegen aan mandje…</span><span id="basket-progress-count"></span></div>
+        <progress id="basket-progress-bar" max="100" value="0" aria-label="Selectievoortgang" data-i18n-aria-label="selectionProgressTitle"></progress>
+      </div>
+      <div class="basket-list" id="basket-list"></div>
+      <div class="basket-footer"><div class="safe-note" data-i18n="safeNote">Kies een doelmap; daarna kun je de bestanden kopiëren of verplaatsen.</div><button class="organize-button" id="organize" disabled>▣ <span data-i18n="makeFolder">Opslaan naar map…</span></button></div>
+    </aside>
+  </div>
+  <dialog id="organize-dialog" class="action-dialog" aria-labelledby="organize-dialog-title">
+    <h2 id="organize-dialog-title" data-i18n="chooseFileAction">Wat wil je met de bestanden doen?</h2>
+    <p data-i18n="destinationFolder">Doelmap</p>
+    <div id="organize-destination" class="dialog-destination"></div>
+    <p id="organize-dialog-summary" class="dialog-summary"></p>
+    <ul id="organize-file-preview" class="dialog-file-preview"></ul>
+    <p class="dialog-warning" data-i18n="moveWarning">Verplaatsen verwijdert de originelen pas nadat ze veilig zijn gekopieerd en gecontroleerd.</p>
+    <form method="dialog" class="dialog-actions">
+      <button class="secondary-button" value="cancel" data-i18n="cancel">Annuleren</button>
+      <button class="secondary-button copy-button" value="copy" data-i18n="copyFiles">Kopiëren</button>
+      <button class="organize-button move-button" value="move" data-i18n="moveFiles">Verplaatsen</button>
+    </form>
+  </dialog>
+  <dialog id="organize-progress-dialog" class="action-dialog progress-dialog" aria-labelledby="organize-progress-title">
+    <h2 id="organize-progress-title" data-i18n="organizeProgressTitle">Bestanden verwerken…</h2>
+    <p id="organize-progress-action" class="dialog-summary"></p>
+    <progress id="organize-progress-bar" max="100" value="0" aria-label="Voortgang" data-i18n-aria-label="organizeProgressTitle"></progress>
+    <div class="organize-progress-details">
+      <strong id="organize-progress-percent">0%</strong>
+      <span id="organize-progress-count">Verwerkte bestanden: 0/0</span>
+    </div>
+    <p id="organize-progress-eta" class="organize-progress-eta"></p>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
