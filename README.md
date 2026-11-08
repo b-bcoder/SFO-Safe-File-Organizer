@@ -59,6 +59,10 @@ required author and repository attribution. Reusing the source code in another
 project requires prior written permission from me (B&B Coder); see the license for
 the request process and conditions.
 
+Third-party software included with the application is listed in
+[THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md). Electron's bundled
+third-party license details are also shipped with the packaged application.
+
 ## Project layout
 
 - `src/main.js` — Electron main process, SQLite metadata, indexing, and protected file operations.
